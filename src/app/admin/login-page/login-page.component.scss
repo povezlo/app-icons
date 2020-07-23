@@ -1,0 +1,17 @@
+form {
+  min-width: 150px;
+  max-width: 500px;
+  margin: 0 auto;
+  margin-top: 10%;
+  padding: 20px;
+  border: 1px solid lightslategrey;
+  border-radius: 10px;
+}
+mat-toolbar {
+  flex: 1 1 auto;
+  padding: 0 14px;
+}
+
+mat-form-field {
+  width: 100%;
+}

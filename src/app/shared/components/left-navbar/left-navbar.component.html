@@ -1,0 +1,332 @@
+<div *ngIf="chips.length" style="margin-left: 10px">
+  <h3 style="text-align: center; margin: 10px">Вы выбрали:</h3>
+  <mat-form-field class="example-chip-list">
+    <mat-chip-list #chipList aria-label="Fruit selection">
+      <mat-chip *ngFor="let chip of chips" [selectable]="selectable"
+                [removable]="removable" (removed)="remove(chip)">{{chip}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
+  </mat-form-field>
+  <h3 mat-subheader>Подобрано икон: {{hasIcons.length}} из {{iconsAll.length}}</h3>
+  <a mat-stroked-button color="link" (click)="deselectAll()"> Сбросить все</a>
+</div>
+<h3 style="text-align: center; margin: 12px 0">
+  <span>Фильтры</span>
+</h3>
+<mat-divider></mat-divider>
+<div class="custom-slider" style="margin: auto 20px">
+  <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options" (userChange)="selectionChange()"></ng5-slider>
+  <p style="text-align: center; margin-top: 10px">
+    <mat-label>Цена: от <b>{{minValue}}</b> и до <b>{{maxValue}}</b></mat-label>
+  </p>
+</div>
+
+<mat-selection-list #checkItems color="primary" (selectionChange)="selectionChange($event)">
+  <mat-accordion multi="true">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Размер иконы
+      </mat-expansion-panel-header>
+      <mat-divider></mat-divider>
+      <mat-label><i>Ширина:</i></mat-label>
+      <mat-divider></mat-divider>
+      <mat-list-option value="ширина до 200" style="position: relative" (click)="tooltipWidth200.toggle()">
+        до 200 мм<small class="posBadge" #tooltipWidth200 = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                        matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="ширина от 200 до  300" style="position: relative" (click)="tooltipWidth300.toggle()">
+        от 200 мм до  300 мм<small class="posBadge" #tooltipWidth300 = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                                   matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="ширина от 300 до 400"  style="position: relative" (click)="tooltipWidth300400.toggle()">
+        от 300 мм до 400 мм<small class="posBadge" #tooltipWidth300400 = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                                  matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="ширина от 400 и выше" style="position: relative" (click)="tooltipWidth400.toggle()">
+        от 400 мм и выше<small class="posBadge" #tooltipWidth400 = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                               matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-divider></mat-divider>
+      <mat-label><i>Высота:</i></mat-label>
+      <mat-divider></mat-divider>
+      <mat-list-option value="высота до 200" style="position: relative" (click)="tooltipHeight200.toggle()">
+        до 200 мм<small class="posBadge" #tooltipHeight200 = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                        matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="высотаот 200 до  300"  style="position: relative" (click)="tooltipHeight300.toggle()">
+        от 200 мм до  300 мм<small class="posBadge" #tooltipHeight300 = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                                   matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="высота от 300 до 400" style="position: relative" (click)="tooltipHeight300400.toggle()">
+        от 300 мм до 400 мм<small class="posBadge" #tooltipHeight300400 = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                                  matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="высота от 400 и выше" style="position: relative" (click)="tooltipHeight400.toggle()">
+        от 400 мм и выше<small class="posBadge" #tooltipHeight400 = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                               matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Имена
+      </mat-expansion-panel-header>
+
+      <mat-list-option value="андрей" style="position: relative" (click)="andrey.toggle()">
+        Андрей<small class="posBadge" #andrey = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                     matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="николай" style="position: relative" (click)="nikolay.toggle()">
+        Николай<small class="posBadge" #nikolay = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                      matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="пантелеймон" style="position: relative" (click)="pantel.toggle()">
+        Пантелеймон<small class="posBadge" #pantel = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                          matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="георгий" style="position: relative" (click)="georg.toggle()">
+        Георгий<small class="posBadge" #georg = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                      matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="михаил" style="position: relative"  (click)="mihal.toggle()">
+        Михаил<small class="posBadge" #mihal = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                     matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="петр" style="position: relative" (click)="petr.toggle()">
+        Петр<small class="posBadge" #petr = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                   matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="павел" style="position: relative" (click)="pavel.toggle()">
+        Павел<small class="posBadge" #pavel = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                    matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="александр" style="position: relative" (click)="alex.toggle()">
+        Александр Невский<small class="posBadge" #alex = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                                matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="кашинская" style="position: relative" (click)="kashin.toggle()">
+        Анна Кашинская<small class="posBadge" #kashin = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                             matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="евдокия" style="position: relative" (click)="evdok.toggle()">
+        Евдокия Московская<small class="posBadge" #evdok = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                                 matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Сюжетные иконы
+      </mat-expansion-panel-header>
+      <mat-list-option value="распятие" style="position: relative" (click)="rasp.toggle()">
+        Распятие<small class="posBadge" #rasp = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                       matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="вечеря" style="position: relative" (click)="vecher.toggle()">
+        Тайная Вечеря<small class="posBadge" #vecher = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                            matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="спас" style="position: relative" (click)="spas.toggle()">
+        Спас Нерукотворный<small class="posBadge" #spas = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                                 matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="семья" style="position: relative" (click)="family.toggle()">
+        Святая Семья<small class="posBadge" #family = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                           matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="воскресение" style="position: relative" (click)="voskres.toggle()">
+        Воскресение<small class="posBadge" #voskres = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                          matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="купина" style="position: relative" (click)="kupina.toggle()">
+        Неопалимая Купина<small class="posBadge" #kupina = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                                matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="царь" style="position: relative" (click)="tsar.toggle()">
+        Царь Славы<small class="posBadge" #tsar = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                         matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="знамение" style="position: relative" (click)="znam.toggle()">
+        Знамение<small class="posBadge" #znam = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                       matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="вознесение" style="position: relative" (click)="voznes.toggle()">
+       Вознесение<small class="posBadge" #voznes = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                        matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="успение" style="position: relative" (click)="yspen.toggle()">
+        Успение Богородицы<small class="posBadge" #yspen = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                                 matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="покрова" style="position: relative" (click)="pokrov.toggle()">
+        Покрова<small class="posBadge" #pokrov = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                      matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Иконы Богородицы
+      </mat-expansion-panel-header>
+      <mat-list-option value="казанская" style="position: relative" (click)="kazan.toggle()">
+        Казанская<small class="posBadge" #kazan = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                        matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="владимирская" style="position: relative" (click)="vlad.toggle()">
+        Владимирская<small class="posBadge" #vlad = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                           matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="ахтырская" style="position: relative" (click)="ahtyr.toggle()">
+        Ахтырская<small class="posBadge" #ahtyr = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                        matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="тихвинская" style="position: relative" (click)="tihvin.toggle()">
+        Тихвинская<small class="posBadge" #tihvin = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                         matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="касперовская" style="position: relative" (click)="kasper.toggle()">
+        Касперовская<small class="posBadge" #kasper = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                           matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="семистрельная" style="position: relative" (click)="semistrel.toggle()">
+        Семистрельная<small class="posBadge" #semistrel = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                            matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="почаевская" style="position: relative" (click)="pochaev.toggle()">
+        Почаевская<small class="posBadge" #pochaev = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                         matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="троеручица" style="position: relative" (click)="troer.toggle()">
+        Троеручица<small class="posBadge" #troer = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                         matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="покрова" style="position: relative" (click)="pokrova.toggle()">
+        Покрова<small class="posBadge" #pokrova = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                      matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="ченстоховская" style="position: relative" (click)="chent.toggle()">
+        Ченстоховская<small class="posBadge" #chent = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                            matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="зарваницкая" style="position: relative" (click)="zarvan.toggle()">
+        Зарваницкая<small class="posBadge" #zarvan = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                          matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="черниговская" style="position: relative" (click)="chernigov.toggle()">
+        Черниговская<small class="posBadge" #chernigov = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                           matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="остробрамская" style="position: relative" (click)="ostrobr.toggle()">
+        Остробрамская<small class="posBadge" #ostrobr = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                            matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="иверская" style="position: relative" (click)="iver.toggle()">
+        Иверская<small class="posBadge" #iver = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+               matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="греко" style="position: relative" (click)="greko.toggle()">
+        Греко Католическая<small class="posBadge" #greko = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                                 matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="смоленская"  style="position: relative" (click)="smol.toggle()">
+        Смоленская<small class="posBadge" #smol = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                         matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Письмо лика
+      </mat-expansion-panel-header>
+      <mat-list-option value="темперные краски"  style="position: relative" (click)="temper.toggle()">
+        Темперные краски<small class="posBadge" #temper = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                               matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="масленные краски"  style="position: relative" (click)="oil.toggle()">
+        Масленные краски<small class="posBadge" #oil = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                               matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+      <mat-list-option value="без письма"  style="position: relative" (click)="nopaints.toggle()">
+         Без письма<small class="posBadge" #nopaints = "matTooltip" matTooltip="{{hasIcons.length}}" matTooltipPosition="right"
+                          matTooltipClass="custom-tooltip"></small>
+      </mat-list-option>
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-selection-list>
+<p style="margin: 10px">
+  <mat-action-list style="display: flex; justify-content: space-around">
+    <button mat-raised-button color="primary" value="hello" (click)="save()" >
+      Применить </button>
+    <button mat-raised-button (click)="deselectAll()"> Сбросить </button>
+  </mat-action-list>
+</p>
+<!--520 / 595-->
+<!--475 / 600-->
+<!--410 / 465-->
+
+<!--385 / 430-->
+<!--380 / 450-->
+<!--380 / 440-->
+<!--375 / 625-->
+<!--370 / 430-->
+<!--360 / 430-->
+<!--345 / 390-->
+<!--340 / 390-->
+<!--330 / 400-->
+<!--330 / 380-->
+<!--325 / 440-->
+<!--325 / 365-->
+<!--324 / 365-->
+<!--318 / 362-->
+<!--315 / 380-->
+<!--315 / 360-->
+<!--315 / 355-->
+<!--310 / 440-->
+<!--310 / 395-->
+<!--310 / 360-->
+<!--305 / 350-->
+<!--305 / 340-->
+<!--300 / 360-->
+<!--300 / 340-->
+
+<!--296 / 336-->
+<!--295 / 377-->
+<!--295 / 320-->
+<!--292 / 362-->
+<!--290 / 345-->
+<!--290 / 340-->
+<!--280 / 330-->
+<!--275 / 315-->
+<!--273 / 332-->
+<!--270 / 315-->
+<!--268 / 312-->
+<!--260 / 320-->
+<!--260 / 310-->
+<!--260 / 300-->
+<!--255 / 302-->
+<!--253 / 295-->
+<!--250 / 300-->
+<!--230 / 270-->
+<!--227 / 262-->
+<!--225 / 290-->
+<!--225 / 270-->
+<!--225 / 265-->
+<!--220 / 265-->
+<!--220 / 260-->
+<!--215 / 260-->
+<!--215 / 255-->
+<!--210 / 255-->
+
+<!--198 / 308-->
+<!--190 / 227-->
+<!--188 / 225-->
+<!--185 / 225-->
+<!--185 / 220-->
+<!--185 / 217-->
+<!--180 / 235-->
+<!--180 / 210-->
+<!--180 / 200-->
+<!--180 / 190-->
+<!--165 / 200-->
+<!--155 / 175-->
+<!--145 / 185-->
+<!--135 / 155-->

@@ -1,0 +1,138 @@
+  <form [formGroup]="form" novalidate>
+    <mat-toolbar class="text-center">
+      <span>Добавить новую икону</span>
+    </mat-toolbar>
+
+    <!--НАЗВАНИЕ ИКОНЫ-->
+
+    <mat-form-field >
+        <mat-label>Название иконы:</mat-label>
+        <input matInput type="text" formControlName="title">
+        <mat-error *ngIf="form.controls.title.hasError('required')">
+          Введите название иконы
+      </mat-error>
+    </mat-form-field>
+
+    <!--РАЗМЕР ИКОНЫ-->
+
+    <mat-form-field>
+        <mat-label>Длина иконы (в миллиметрах)</mat-label>
+        <input matInput type="number" formControlName="height">
+      <span matSuffix>mm</span>
+      <mat-error *ngIf="form.controls.height.hasError('required')">
+            Вы не указали длину
+        </mat-error>
+    </mat-form-field>
+      <mat-form-field>
+        <mat-label>Ширина иконы (в миллиметрах)</mat-label>
+        <input matInput type="number" formControlName="width">
+        <span matSuffix>mm</span>
+        <mat-error *ngIf="form.controls.width.hasError('required')">
+            Вы не указали ширину
+        </mat-error>
+    </mat-form-field>
+
+    <!--    ЦЕНА ИКОНЫ-->
+
+    <mat-form-field>
+        <mat-label>Цена иконы: (одной или пары)</mat-label>
+        <input matInput type="number" formControlName="price">
+                  <span matPrefix>&#8372;</span>
+                  <span matSuffix>.00</span>
+      <mat-error *ngIf="form.controls.price.hasError('required')">
+            Вы не указали цену иконы
+        </mat-error>
+    </mat-form-field>
+
+    <!--    КОД ТОВАРА-->
+
+    <mat-form-field>
+        <mat-label>Код товара</mat-label>
+        <input matInput type="number" formControlName="code">
+      <small *ngFor="let code of codeIcons | filterCode: form.get('code').value">
+        <span *ngIf="form.get('code').value" class="text-danger">Такой код уже существует</span>
+      </small>
+      <mat-error *ngIf="form.controls.code.hasError('required')">
+            Вы не указали код товара
+        </mat-error>
+    </mat-form-field>
+
+    <!--    ИСПОЛЬЗУЕМЫЕ КРАСКИ ПРИ ПИСЬМЕ ИКОНЫ -->
+
+      <mat-radio-group color="primary" formControlName="paints">
+        <mat-label class="mat-card-subtitle" style="margin-bottom: 10px">Выберите использованную краску</mat-label>
+        <mat-radio-button value="темперные краски">Темперные краски</mat-radio-button>
+        <mat-radio-button checked value="масленные краски">Масляные краски</mat-radio-button>
+        <mat-radio-button value="без письма">Без краски</mat-radio-button>
+      </mat-radio-group>
+
+    <!-- ВЫБОР КАТЕГОРИИ -->
+    <mat-form-field>
+      <mat-label>Выбор категории</mat-label>
+      <mat-select formControlName="categories">
+        <mat-option value="all" disabled>Весь список</mat-option>
+        <mat-option value="para">Пары Венчальные</mat-option>
+        <mat-option value="mater">Божия Матерь</mat-option>
+        <mat-option value="imena">Именные иконы</mat-option>
+        <mat-option value="spas">Спас и другие</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!--    ПАРА-->
+
+      <mat-checkbox color="primary" formControlName="pairs">Пара (поставьте галочку, если пара)</mat-checkbox>
+
+    <!--     ЕСТЬ В НАЛИЧИИ   -->
+
+      <mat-checkbox color="primary" formControlName="available">Есть в наличии</mat-checkbox>
+
+    <!--     ЗАГРУЗИТЬ ФОТОГРАФИЮ   -->
+    <mat-divider></mat-divider>
+    <mat-toolbar-row class="text-center">
+      <small class="mat-subheading-2">Загрузить фотографию иконы</small>
+    </mat-toolbar-row>
+    <div class="container">
+      <img src="{{images[0]}}" class="smallImage" alt="Не удалось загрузить" *ngIf="images[0]">
+      <img src="{{images[1]}}" class="smallImage" alt="Не удалось загрузить" *ngIf="images[1]">
+      <img src="{{images[2]}}" class="smallImage" alt="Не удалось загрузить" *ngIf="images[2]">
+    </div>
+    <div style="margin-top: 20px">
+      <div [ngClass]="{hide: images[0]}">
+        <mat-form-field appearance="outline">
+          <mat-label>Добавить фотографию</mat-label>
+          <ngx-mat-file-input formControlName="file" accept=".png, .jpg, .jpeg"
+                              (change)="onSelectFile($event)"></ngx-mat-file-input>
+          <mat-icon matSuffix>camera_enhance</mat-icon>
+          <small *ngIf="form.get('pairs').value">
+            <small class="text-danger mat-card-subtitle"  [ngClass]="{hide: images[0]}">Важно! Первая фотография должна быть парой.
+              Далее идут две фотографии отдельно Господь и Матерь</small></small>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="form.get('pairs').value && images[0]">
+        <div [ngClass]="{hide: images[1]}">
+          <mat-form-field>
+            <mat-label>Добавить еще фотографию</mat-label>
+            <ngx-mat-file-input formControlName="file2" accept=".png, .jpg, .jpeg"
+                                (change)="onSelectFile($event)"></ngx-mat-file-input>
+            <mat-icon matSuffix>camera_enhance</mat-icon>
+          </mat-form-field>
+        </div>
+        <div *ngIf="images[1]" [ngClass]="{hide: images[2]}">
+          <mat-form-field>
+            <mat-label>Добавить еще фотографию</mat-label>
+            <ngx-mat-file-input formControlName="file3" accept=".png, .jpg, .jpeg"
+                   (change)="onSelectFile($event)"></ngx-mat-file-input>
+            <mat-icon matSuffix>camera_enhance</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+
+    <!--     ОТПРАВИТЬ  -->
+  <button type="button" mat-raised-button color="primary" (click)="submit()" [disabled]="!form.valid">Добавить</button>
+
+  </form>
+
+

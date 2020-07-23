@@ -1,0 +1,65 @@
+mat-toolbar-row {
+  justify-content: center;
+}
+
+.text-center {
+  justify-content: center;
+}
+form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid lightslategrey;
+  border-radius: 2px;
+}
+mat-toolbar {
+  flex: 1 1 auto;
+  padding: 0 14px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.smallImage {
+  width: 30%;
+}
+
+mat-radio-button {
+  margin: 5px;
+}
+
+mat-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+mat-checkbox {
+  display: flex;
+  margin: 1em 6px;
+}
+
+.marginBottom {
+  margin: 1em auto;
+}
+
+.text-danger {
+  color: red;
+}
+
+.hide {
+  display: none;
+}
+
+.container {
+  display: flex;
+  justify-content: left;
+}
+
+button {
+  margin-top: 20px;
+}
+

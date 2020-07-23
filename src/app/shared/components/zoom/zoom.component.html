@@ -1,0 +1,6 @@
+<div class="img-zoom-container">
+  <img #img [style.width]="yet && imgWidth?imgWidth+'vw':null" [style.heigth]="yet && imgHeigth ? imgHeigth+'px':null" id="myimage" [src]="imagen" (load)="onLoad()">
+  <div #len [style.width]="lenSize+'vw'" [style.height]="lenSize+'vw'"  [style.left] ="posX+'px'" [style.top] ="posY+'px'"
+       class="img-zoom-lens">
+  </div>
+</div>

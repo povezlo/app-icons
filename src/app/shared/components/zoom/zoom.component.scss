@@ -1,0 +1,13 @@
+.img-zoom-container {
+  position: relative;
+}
+.img-zoom-lens {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+
+}
+@media screen and (max-width: 1366px)  {
+  .img-zoom-lens  {
+    display: none;
+  }
+}

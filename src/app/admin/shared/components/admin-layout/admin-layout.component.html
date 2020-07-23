@@ -1,0 +1,16 @@
+<mat-toolbar class="navbarAdmin" color="primary">
+  <div><a mat-button routerLink="/"><mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon></a></div>
+  <nav *ngIf="auth.isAuthenticated()">
+    <a mat-button [routerLink]="['/admin', 'dashboard']"> Редактировать</a>
+    <a mat-button  [routerLink]="['/admin', 'create']">Добавить</a>
+    <a mat-button  [routerLink]="['/admin', 'feedback']">Отзывы</a>
+    <a mat-button  [routerLink]="['/admin', 'questions']">Вопросы</a>
+    <a mat-button  href="#" (click)="logout($event)"><mat-icon aria-hidden="false" aria-label="exit_to_app">logout</mat-icon></a>
+  </nav>
+</mat-toolbar>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+
+

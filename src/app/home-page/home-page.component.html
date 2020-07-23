@@ -1,0 +1,114 @@
+<mat-sidenav-container class="container" (backdropClick)="close('backdrop')" >
+    <mat-sidenav #sidenav mode="{{side}}" [(opened)]="opened" (keydown.escape)="close('escape')" disableClose>
+      <app-left-navbar (getFilter)="getSelectedFilter($event)"></app-left-navbar>
+        <p style="display: flex; justify-content: center"><button mat-button (click)="close('toggle button')">
+          <span style="text-decoration-line: underline" class="hideFilter">Закрыть окно</span></button></p>
+    </mat-sidenav>
+
+  <mat-sidenav-content>
+<div class="sidenavBarFilter">
+<!--  SEARCH-->
+  <div class="findFilter">
+     <div>
+       <span class="material-icons">find_in_page</span>
+     </div>
+    <mat-form-field style="width: 300px; margin: 0 10px">
+      <mat-label>Поиск</mat-label>
+      <label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Поиск по названию">
+      </label>
+    </mat-form-field>
+  </div>
+
+<!--  FILTER ON PRICE / NAME / AVAILABLE-->
+  <div class="sidenavBarFilterBtn">
+    <div class="hideFilter">
+      <button  mat-raised-button  (click)="open()">Фильтры</button>
+    </div>
+    <div class="slidenavFilterBtnSm">
+      <mat-form-field style="margin-right: 40px">
+        <mat-label></mat-label>
+        <mat-select disableRipple [formControl]="selectOpt" (selectionChange)="selectSort()" [(ngModel)]="select">
+          <mat-option value="priceUp" label="по возрастанию цены">по возрастанию цены</mat-option>
+          <mat-option value="priceDown" label="по убыванию цены">по убыванию цены</mat-option>
+          <mat-option value="title" label="по наименованию">по наименованию</mat-option>
+          <mat-option value="available" label="в наличие">в наличие</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!--  СЕТКА 3*3 ИЛИ 6*6-->
+      <div class="hide">
+        <mat-button-toggle-group #group="matButtonToggleGroup">
+          <mat-button-toggle value="col"><span class="material-icons">
+view_module
+</span></mat-button-toggle>
+          <mat-button-toggle value="rows"><span class="material-icons">
+dehaze
+</span></mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!--    //LIST GROUP CARDS BY ICONS-->
+    <mat-tab-group #tabRef (selectedTabChange)="logChange(tabRef.selectedIndex)" animationDuration="1000ms"
+                  backgroundColor="primary" [class.mt] = "group.value === 'off'">
+      <div *ngIf="buferIcons; else noData">
+        <div>
+        </div>
+        <mat-tab label="Весь список">
+          <ng-template matTabContent>
+            <mat-card>
+              <app-icon  *ngFor="let icon of obs | async" [icon] = "icon"></app-icon>
+<!--              <app-icon  *ngFor="let icon of obs | async" [icon] = "icon"></app-icon>-->
+            </mat-card>
+          </ng-template>
+        </mat-tab>
+        <mat-tab label="Пары венчальные">
+          <ng-template matTabContent>
+            <mat-card>
+              <app-icon  *ngFor="let icon of obs | async" [icon] = "icon"></app-icon>
+            </mat-card>
+          </ng-template>
+        </mat-tab>
+        <mat-tab label="Божия Матерь">
+          <ng-template matTabContent>
+            <mat-card>
+              <app-icon  *ngFor="let icon of obs | async" [icon] = "icon"></app-icon>
+            </mat-card>
+          </ng-template>
+        </mat-tab>
+        <mat-tab label="Именные иконы">
+          <ng-template matTabContent>
+            <mat-card>
+              <app-icon  *ngFor="let icon of obs | async" [icon] = "icon"></app-icon>
+            </mat-card>
+          </ng-template>
+        </mat-tab>
+        <mat-tab label="Спас и другие">
+          <ng-template matTabContent>
+            <mat-card>
+              <app-icon  *ngFor="let icon of obs | async" [icon] = "icon"></app-icon>
+            </mat-card>
+          </ng-template>
+        </mat-tab>
+      </div>
+      <ng-template #noData>
+<p> Нет товара</p>
+      </ng-template>
+    </mat-tab-group>
+    <div *ngIf="!buferIcons || selectAll === 0">
+      <p style="margin: 10px 40px; height: 500px">По вашему запросу ничего не найдено(((</p>
+    </div>
+<!--    PAGINATOR-->
+    <mat-paginator #paginatoR [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
+
+
+
+

@@ -1,0 +1,106 @@
+.btn-block-items {
+  display: flex;
+  justify-content: space-between;
+  width: 100px;
+  height: 30px;
+  background-color: #d8e0f3;
+}
+.btn-items {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-style: none;
+}
+.image {
+  width: 300px
+}
+.btn-items-value {
+  height: 30px;
+  width: 36px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 16px;background-color: white;
+}
+.textGold {
+  color: darkgoldenrod;
+}
+.fontGabriela {
+
+  font-family: 'Gabriela', serif;
+}
+.block-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 30px
+}
+.dialog-content {
+  display: flex;
+  justify-content: space-around
+}
+.mat-dialog-button {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 80px
+}
+.price-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: auto;
+  margin: 20px
+}
+@media screen and  (max-width: 666px) {
+  h1 {
+    font-size: 16px;
+  }
+  .image {
+    width: 160px;
+  }
+  .dialog-content {
+    flex-wrap: wrap;
+  }
+  .mat-dialog-content {
+  }
+  .mat-dialog-button {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: auto;
+  }
+  .mat-dialog-button-block {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column-reverse;
+    margin: 0 10px;
+    width: 100%;
+    button {
+      margin: 10px auto;
+    }
+  }
+  .available {
+    display: none;
+  }
+  .code {
+    display: block;
+    text-align: center;
+  }
+  h2 {
+    font-size: 16px;
+  }
+  .des {
+    font-size: 14px;
+  }
+  .small {
+         font-size: 10px;
+       }
+  h3 {
+    margin: 20px auto;
+  }
+}

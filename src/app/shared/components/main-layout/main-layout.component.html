@@ -1,0 +1,90 @@
+<div>
+  <div>
+    <mat-toolbar style="position: fixed; z-index: 1000">
+      <mat-toolbar-row>
+        <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span class="menu-spacer"></span>
+        <div fxShow="true" fxHide.lt-md style="width: 100%; display: flex;">
+          <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+
+          <div style="width: 100%; display: flex; height: 68px">
+            <button mat-button [routerLink]="['/']"><span class="material-icons">house</span></button>
+            <mat-menu  yPosition="above">
+            </mat-menu>
+
+            <button mat-button [routerLink]="['/about']"> О нас</button>
+            <mat-menu xPosition="after">
+            </mat-menu>
+
+            <button mat-button [routerLink]="['/guarantee']">Гарантии</button>
+            <mat-menu xPosition="before">
+            </mat-menu>
+
+            <button mat-button [routerLink]="['/howToBuy']">Как купить?</button>
+            <mat-menu xPosition="before">
+            </mat-menu>
+
+            <button mat-button [routerLink]="['/contacts']">Контакты</button>
+            <mat-menu xPosition="before">
+            </mat-menu>
+          </div>
+        </div>
+        <div class="cart" style="display: flex; height: 68px">
+          <button mat-button [routerLink]="['/cart']"><span class="material-icons" matBadge="{{item}}">shopping_cart</span></button>
+          <mat-menu xPosition="after">
+          </mat-menu>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </div>
+
+
+  <mat-sidenav-container fxFlexFill>
+    <mat-sidenav #sidenav>
+      <mat-nav-list  fxLayout="column" style="align-items: flex-start">
+        <a href="" mat-list-item></a>
+        <a (click)="sidenav.toggle()" href="" mat-list-item><span class="material-icons">close</span></a>
+        <a  [routerLink]="['/']" mat-list-item>Главная</a>
+        <a [routerLink]="['/about']"  mat-list-item>О нас</a>
+        <a [routerLink]="['/guarantee']"  mat-list-item>Гарантии</a>
+        <a [routerLink]="['/howToBuy']"  mat-list-item>Как купить?</a>
+        <a [routerLink]="['/contacts']"  mat-list-item>Контакты</a>
+        <a [routerLink]="['/cart']"  mat-list-item>Корзина</a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content fxFlexFill>
+      <mat-toolbar class="header">
+        <mat-toolbar-row>
+          <div  style="height: 68px"></div>
+        </mat-toolbar-row>
+        <mat-toolbar-row>
+          <div class="header-autor" >
+            Cтудия
+          </div>
+        </mat-toolbar-row>
+        <mat-toolbar-row  class="header-text">
+          Майстер Iкон
+        </mat-toolbar-row>
+        <mat-toolbar-row>
+          <div class="header-data">
+            -2006-
+          </div>
+        </mat-toolbar-row>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  <app-footer></app-footer>
+  <button
+    ngxScrollTop
+    [ngxScrollTopMode]="'smart'"
+    class="my-custom-style"
+    mat-mini-fab>
+   <span class="material-icons">arrow_upward</span>
+  </button>
+</div>
+

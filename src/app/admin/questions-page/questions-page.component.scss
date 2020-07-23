@@ -1,0 +1,54 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.microImage {
+  max-width: 80px;
+}
+
+.mat-sort-header-container {
+  align-items: center;
+}
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.editCell {
+  width: 11em;
+  button {
+    margin-right: 1em;
+  }
+}
+
+.example-action-buttons {
+  padding-bottom: 20px;
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+.example-form {
+  width: 80%;
+  display: grid;
+  margin: 15px 40px;
+}
+.example-full-width-textarea {
+    padding: 20px;
+    width: 600px;
+  }
+

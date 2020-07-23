@@ -1,0 +1,236 @@
+<div *ngIf="icon$ | async as icon; else loading">
+  <mat-grid-list cols="{{column}}" rowHeight="120px" gutterSize="20px">
+    <mat-grid-tile colspan="{{column}}" rowspan="1"><div>
+      <mat-card-header>
+        <mat-card-title>{{icon.title}}  </mat-card-title>
+        <mat-card-subtitle>
+        <div *ngIf="icon.available">
+          <span style="color: lime">В наличии</span>
+        </div>
+        <div *ngIf="!icon.available">
+          <span style="color: red">Нет в наличии</span>
+        </div>
+      </mat-card-subtitle>
+      </mat-card-header>
+    </div></mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="{{row}}" id="slider">
+      <div>
+      <mat-grid-tile-header style="width: 100%; background-color: white">
+        <div style="display: flex; justify-content: space-between; margin: 0 10px; width: 100%; height: 40px">
+          <div style="width: 100px; height: 46px">
+            <small style="color: grey; font-size: 14px">Код товара: </small>
+            <small style="color: black; font-size: 16px;">хм-{{icon.code}}</small>
+          </div>
+          <div style="width: 100px">
+            <mat-card-actions>
+              <button color="primary" mat-icon-button><span class="material-icons">more_vert</span></button>
+              <button color="primary" mat-icon-button><span class="material-icons">favorite_border</span></button>
+            </mat-card-actions>
+          </div>
+        </div>
+      </mat-grid-tile-header>
+<!--        IMAGE SLIDER-->
+        <div class="img-block">
+          <div *ngIf="column === 1; else appzoom">
+            <div *ngFor="let image of icon.img" >
+              <img  class="image" src="{{image}}" alt="{{icon.title}}">
+            </div>
+          </div>
+          <ng-template #appzoom>
+            <div *ngFor="let image of icon.img; let indexImg = index">
+              <div style="width: 100%; height: auto" *ngIf="indexImg === i" [@carouselAnimation] >
+                <app-zoom  [img]="image" [zoom]="5" [lenSize]="4" [imgWidth]="38"   [divZoomed]="divZoomed"
+                          (mouseover)="divZoomed.style.visibility = 'visible'" (mouseleave)="divZoomed.style.visibility = 'hidden'" ></app-zoom>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+          <mat-card-actions class="btn-arrows" (keyup)="step($event, icon.img.length)">
+            <button class="btn-left" color="link" mat-mini-fab (click)="step($event, icon.img.length, 'left')" *ngIf="icon.img.length > 1">
+              <span class="material-icons arrows">chevron_left</span>
+            </button>
+            <button class="btn-right" color="link" mat-mini-fab  (click)="step($event, icon.img.length, 'right')" *ngIf="icon.img.length > 1">
+              <span class="material-icons arrows">chevron_right</span>
+            </button>
+          </mat-card-actions>
+        <mat-divider class="carousel-slider-divider"></mat-divider>
+        <div #idSliderImg class="carousel-slider" *ngIf="icon.img.length > 1">
+          <div *ngFor="let image of icon.img"><img matRipple (click)="step($event, icon.img.length, 'curentImg')" class="carousel-slider-img" src="{{image}}" alt=""></div>
+          </div>
+        </div>
+    </mat-grid-tile>
+
+<!--    //ZOOMER-->
+
+        <div #divZoomed class="img-zoom-result"></div>
+
+<!--    БЛОК С ЦЕНА И КНОПКА-->
+    <mat-grid-tile colspan="1" rowspan="1">
+      <div class="price-button-block">
+        <div>
+          <mat-list class="info" style="display: flex; flex-direction: column; align-items: self-end">
+            <mat-list *ngIf="icon.pairs; else pairs" style="font-size: 12px">Цена за пару:</mat-list>
+            <ng-template #pairs><mat-list mat-card-subtitle  style="font-size: 12px">Цена:</mat-list></ng-template>
+            <mat-list class="price-button">{{icon.price}} грн</mat-list>
+          </mat-list>
+        </div>
+          <mat-card-actions>
+            <button mat-raised-button (click)="openOrderForm(icon)" color="primary" class="button-to-buy" style="margin: 0 6px">
+              <small style="font-size: 14px; margin: 0 10px" *ngIf="icon.available">Купить</small>
+              <small style="font-size: 14px; color: gainsboro" *ngIf="!icon.available">Заказать!</small>
+            </button>
+          </mat-card-actions>
+      </div>
+
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="4">
+      <mat-list>
+        <mat-list-item style="font-weight: bold;">Материал:</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>{{icon.paints}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>оклад с серебром и позолотой</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>рама из дерева</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>лаковое покрытие</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Размеры:</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>{{icon.width }}&#xD7;{{ icon.height }} <span> мм</span> </mat-list-item>
+      </mat-list>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <!--    ОСТАВЬТЕ КОММЕНТАРИЙ ИЗАДАЙТЕ ВОПРОС-->
+
+    <div class="comments-block">
+      <mat-tab-group animationDuration="1000ms" style="width: 100%; height: auto;"   mat-align-tabs="center">
+        <mat-tab label="Оставьте отзыв">
+          <h3 style="margin: 15px 40px"><span matBadge="{{commentsLenth}}" matBadgeOverlap="false" style="font-family: 'Gabriela', serif">Отзывы </span></h3>
+          <div mat-card-content *ngIf="commit.comments" style="height: auto">
+            <div class="feedback-list-card "
+                 *ngFor="let comment of commit.comments">
+              <div style="margin: 0 20px; display: flex ">
+                <h4 style="margin-top: 5px;"><b>{{comment.name}}</b></h4>
+                <p style="align-self: center; margin: 0px 0px 10px 30px;" mat-card-subtitle>{{comment.date | date: 'medium': null:'ua'}}</p>
+              </div>
+              <mat-divider></mat-divider>
+              <h4 style="font-family: 'Gabriela', serif; margin:10px 0 20px 20px">Отзыв:</h4>
+              <p style="margin: 20px">{{comment.comments}}</p>
+            </div>
+
+          </div>
+          <mat-divider></mat-divider>
+          <h3 style="font-family: 'Gabriela', serif; text-align: center; margin: 5px">Написать отзыв</h3>
+          <mat-divider></mat-divider>
+          <form class="example-form  feedback-list-shadow " [formGroup]="formComments">
+            <mat-form-field class="example-full-width">
+              <mat-label>Ваше имя</mat-label>
+              <input matInput placeholder="Имя" formControlName="name" style="margin: 15px 40px">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width-textarea">
+              <mat-label>Отзыв</mat-label>
+              <textarea rows="5" matInput formControlName="comments" style="margin: 15px 40px"></textarea>
+            </mat-form-field>
+            <div style="display: flex; justify-content: flex-end; width: 100%">
+              <button style="margin: 40px 100px; width: max-content;" type="button" mat-raised-button color="primary" (click)="submit()" [disabled]="!formComments.valid">Добавить отзыв</button>
+            </div>
+
+          </form>
+
+          <!--    ЗАДАЙТЕ ВОПРОС-->
+
+        </mat-tab>
+        <mat-tab label="Задать вопрос">
+          <h3 style="margin: 15px 40px"><span matBadge="{{questionsLenth}}" matBadgeOverlap="false" style="font-family: 'Gabriela', serif">Вопросы </span></h3>
+          <div mat-card-content *ngIf="questionsTab.questions" style="font-family: 'Gabriela', serif; height: auto">
+            <div *ngFor="let question of questionsTab.questions; let i = index"  class="feedback-list-shadow">
+              <div style="display: flex; justify-content: space-between; background-color: #f4f4f4;">
+                <div style="display: flex; align-items: baseline; margin: 10px 10px -10px 10px">
+                  <h3><b>{{question.name}}</b></h3>
+                  <p style="margin-left: 20px" mat-card-subtitle >{{question.date | date: 'medium': null:'ua'}}</p>
+                </div>
+              </div>
+              <mat-divider></mat-divider>
+              <div *ngFor="let actorQ of question.question">
+                <div *ngIf="actorQ.actor === 'user'; else admin">
+                  <p style="margin: 10px"><strong>Вопрос: </strong>{{actorQ.q}}</p>
+                </div>
+                <ng-template #admin>
+                  <div class="question-block">
+                    <div class="question-block-mob">
+                      <span class="material-icons">person_outline</span>
+                      <h3 style="margin: 0 20px ">Интернет-магазин Mastericon.top</h3>
+                      <p mat-card-subtitle style="margin: 10px" >{{actorQ.date | date: 'medium': null:'ua'}}</p>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <p style="padding: 10px 20px"><strong>Ответ: </strong>{{actorQ.q}}</p>
+
+                  </div>
+                </ng-template>
+              </div>
+
+
+              <p *ngIf="question.question.length > 1">
+                <mat-accordion class="example-headers-align" multi>
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title style="color: royalblue" >
+                        Ответить
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-form-field class="example-full-width-textarea" [formGroup]="myGroup">
+                      <mat-label>Ответ</mat-label>
+                      <textarea rows="5" matInput formControlName="answer" style="margin: 15px 40px"></textarea>
+                    </mat-form-field>
+                    <mat-divider></mat-divider>
+                    <div style="width: 100%; display: flex; flex-direction: row-reverse">
+                      <button style="margin-top: 10px;" mat-stroked-button color="primary" (click)="toAnswer(i)" [disabled]="!myGroup.valid">Ответить</button>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </p>
+            </div>
+
+          </div>
+          <mat-divider></mat-divider>
+          <h3 style="font-family: 'Gabriela', serif; text-align: center; margin: 5px">Задать вопрос</h3>
+          <mat-divider></mat-divider>
+          <form class="example-form feedback-list-shadow " [formGroup]="formQuestions">
+            <mat-form-field class="example-full-width">
+              <mat-label>Ваше имя</mat-label>
+              <input matInput placeholder="Имя" formControlName="name" style="margin: 15px 40px">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <mat-label>Ваше email</mat-label>
+              <input matInput placeholder="Имя" formControlName="email" style="margin: 15px 40px">
+            </mat-form-field>
+            <mat-form-field class="example-full-width-textarea">
+              <mat-label>Вопрос</mat-label>
+              <textarea rows="5" matInput formControlName="question" style="margin: 15px 40px"></textarea>
+            </mat-form-field>
+            <div style="display: flex; justify-content: flex-end; width: 100%">
+              <button style="margin: 40px 100px; width: max-content;" type="button" mat-raised-button color="primary" (click)="ask()" [disabled]="!formQuestions.valid">Задать вопрос</button>
+            </div>
+
+          </form>
+        </mat-tab>
+      </mat-tab-group>
+  </div>
+</div>
+<ng-template #loading>
+  <p></p>
+</ng-template>
+
+
+
+
+
+
+
+
+
+
+

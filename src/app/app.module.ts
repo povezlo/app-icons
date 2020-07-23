@@ -31,6 +31,10 @@ import { GuaranteePageComponent } from './guarantee-page/guarantee-page.componen
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { NgxScrollTopModule } from 'ngx-scrolltop';
 import { ZoomComponent } from './shared/components/zoom/zoom.component';
+import { OrderFormsComponent } from './shared/components/order-forms/order-forms.component';
+import {MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
+import {StorageServiceModule} from 'ngx-webstorage-service';
+import {LocalStorageService} from './shared/local-storage.service';
 
 registerLocaleData(ruLocale, 'ua');
 
@@ -48,8 +52,10 @@ registerLocaleData(ruLocale, 'ua');
     ContactsPageComponent,
     GuaranteePageComponent,
     FooterComponent,
-    ZoomComponent
+    ZoomComponent,
+    OrderFormsComponent
   ],
+  entryComponents: [OrderFormsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -65,13 +71,18 @@ registerLocaleData(ruLocale, 'ua');
     Ng5SliderModule,
     NgpSortModule,
     FlexLayoutModule,
-    NgxScrollTopModule
+    NgxScrollTopModule,
+    StorageServiceModule
   ],
-  providers: [AuthService, WorkWithFirebaseIconsService,
+  providers: [
+    AuthService,
+    WorkWithFirebaseIconsService,
+    LocalStorageService,
     {provide: HTTP_INTERCEPTORS,
       multi: true,
       useClass: AuthInterceptor
-    }],
+    },
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

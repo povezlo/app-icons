@@ -1,0 +1,24 @@
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="mat-title">Войти в панель администратора</div>
+    <mat-error *ngIf="auth.error$ | async as error">{{error}}</mat-error>
+    <mat-error *ngIf="message">{{message}}</mat-error>
+    <mat-form-field color="primary">
+      <mat-label>Введите ваш email</mat-label>
+      <input matInput formControlName="email" required>
+            <mat-error *ngIf="form.controls.email?.invalid && (form.controls.email.dirty || form.controls.email.touched)">
+              {{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <div>
+      <mat-form-field color="primary">
+        <input matInput formControlName="password" placeholder="Введите ваш пароль" [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+
+    </div>
+    <button type="submit" mat-raised-button color="primary" class="btn btn-primary" [disabled]="form.invalid || submitted">Войти</button>
+  </form>
+
+

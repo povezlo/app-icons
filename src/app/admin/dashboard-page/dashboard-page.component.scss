@@ -1,0 +1,47 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.microImage {
+  max-width: 80px;
+}
+
+.mat-sort-header-container {
+  align-items: center;
+}
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+input:focus {
+  font-weight: 500;
+  border-bottom: 1px solid blue;
+}
+.editCell {
+  width: 11em;
+  button {
+    margin-right: 1em;
+  }
+}
+
+.awailCell {
+  width: 60px;
+  padding: 10px;
+}
+
+.priceCell {
+  width: 120px;
+  padding: auto 20px;
+  input {
+    width: 60%;
+  }
+}
+
+.codeCell {
+  width: 60px;
+}

@@ -1,0 +1,95 @@
+<h2 style="text-align: center">Отзывы</h2>
+<h3 style="margin: 15px 40px"><span matBadge="{{commentsLength}}" matBadgeOverlap="false">Отзывы </span></h3>
+<div *ngIf="icons; else loading">
+
+  <!-- Таблица-->
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <!-- Фотография-->
+
+      <ng-container matColumnDef="img" >
+        <th mat-header-cell *matHeaderCellDef style="padding-left: 40px"> Фото </th>
+        <td mat-cell *matCellDef="let element" style="width: 100px">
+          <img class="microImage distance" src="{{element.img}}" alt="" >
+          <div *ngIf="element.pairs" class>
+            <img class="microImage" src="{{element.img[0]}}" alt="">
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Код товара -->
+
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Код</th>
+        <td mat-cell *matCellDef="let element" class="codeCell"> хм-{{+element.code}}</td>
+      </ng-container>
+
+      <!-- Название иконы -->
+
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left: 20px"> Название иконы </th>
+        <td mat-cell *matCellDef="let element" style="width: 200px; padding: 0 20px">
+          <span>{{element.title}}</span>
+        </td>
+      </ng-container>
+
+      <!-- Отзывы -->
+
+      <ng-container matColumnDef="comments">
+        <th mat-header-cell *matHeaderCellDef> Отзывы </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="feedback-list" *ngFor="let comment of element.comments; let i = index">
+            <div class="feedback-list-card" (click)="readly(element.id, i)">
+              <div style="display: flex; justify-content: space-between; background-color: #f4f4f4;">
+                <div style="display: flex; justify-content: space-between">
+                  <div *ngIf="comment.read; else read">
+                    <h3><span matBadge="!" matBadgeColor="accent" matBadgePosition="above after" matBadgeOverlap="false">{{comment.name}}</span></h3>
+                    <p mat-card-subtitle style="margin: 0 20px; align-self: center;">{{comment.date | date: 'medium': null:'ua'}}</p>
+                  </div>
+                  <ng-template #read>
+                      <h3 style="margin: 10px 20px">{{comment.name}}</h3>
+                      <p mat-card-subtitle style="margin: 0 20px; align-self: center;">{{comment.date | date: 'medium': null:'ua'}}</p>
+                  </ng-template>
+                </div>
+                <button mat-icon-button (click)="remove(element.id, i)" color="warn">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+              <mat-divider></mat-divider>
+              <h4 style="margin: 10px 20px">Отзыв:</h4>
+              <p style="margin: 10px 20px 20px 20px">{{comment.comments}}</p>
+
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Дата отзываа -->
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата последних отзывов </th>
+        <td mat-cell *matCellDef="let element">
+          <p mat-card-subtitle style="text-align: end">{{element.comments[element.comments.length-1].date | date: 'medium': null:'ua'}}</p>
+        </td>
+      </ng-container>
+
+      <!-- Headers -->
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator #paginatoR [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+  </div>
+
+</div>
+
+<ng-template #loading>
+  <div style="margin-top: 60px">
+    <app-load-spinner></app-load-spinner>
+  </div>
+
+</ng-template>
+
+
+

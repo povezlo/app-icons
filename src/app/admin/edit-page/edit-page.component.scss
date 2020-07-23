@@ -1,0 +1,39 @@
+.form {
+  width: auto;
+  margin: 50px;
+  height: auto;
+}
+
+///Button upload
+.mat-card-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 20px;
+  button {
+    margin-left: 20px;
+  }
+}
+.matflex {
+  display: flex;
+  flex-basis: 200px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  .card {
+    margin: 10px;
+    .mat-card-actions {
+      button {
+         height: 52px;
+        margin-top: 3px;
+      }
+    }
+  }
+}
+
+.addImage {
+  width: 152px;
+  height: 152px;
+  span {
+    font-size: 152px;
+    text-align: center;
+  }
+}

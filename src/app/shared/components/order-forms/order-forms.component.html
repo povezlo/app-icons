@@ -1,0 +1,55 @@
+
+<div mat-dialog-content class="mat-dialog-content">
+  <h1 mat-dialog-title style="margin: 15px"> Товар добавлен в корзину!</h1>
+  <div class="dialog-content">
+    <div>
+      <img class="image" src="{{data.img}}" alt="">
+    </div>
+    <div class="block-description">
+      <mat-card-header>
+        <mat-card-title class="textGold fontGabriela" style="font-size: 20px">{{data.title}} <span class="code" mat-card-subtitle>Код: хм-{{data.code}}</span>
+          <mat-card-subtitle style="margin: 20px 0">
+            <div *ngIf="data.available"><span style="color: lime"  class="fontGabriela available">В наличии</span> </div>
+            <div *ngIf="!data.available"><span style="color: red"  class="fontGabriela des">
+              Иконы сейчас нет в наличии, но вы можете ее заказать. Заказ выполняется в течении двух недель.
+              Это время необходимое для изготовления иконы. Подробнее в разделе <a [routerLink]="['/howToBuy']" mat-dialog-close>Как купить?</a>.
+            </span></div>
+          </mat-card-subtitle>
+        </mat-card-title>
+      </mat-card-header>
+      <h3 mat-card-subtitle class="fontGabriela des">(размер: {{data.width}}*{{data.height}}, серебро, позолото, письмо: {{data.paints}} краски)</h3>
+
+      <div class="price-btn">
+        <div style="display: flex">
+          <div style="display: flex; margin-bottom: 10px">
+            <mat-list *ngIf="data.pairs; else pairs" class="des">Цена за пару:</mat-list>
+            <ng-template #pairs><mat-list class="des">Цена:</mat-list></ng-template>
+            <mat-list class="textGold fontGabriela des" style="margin: 0 10px; font-size: 18px">{{data.price}} грн</mat-list>
+          </div>
+          <h2 style="margin-left: 20px; margin-top: 4px;"><span class="material-icons">clear</span></h2>
+        </div>
+        <div class="btn-block-items">
+          <button mat-icon-button class="btn-items" (click)="removeItems()"><span class="material-icons">remove</span></button>
+          <small class="btn-items-value" mat-subheader> <span style="margin: 0 auto; width: 18px">{{score}}</span></small>
+          <button mat-icon-button class="btn-items" (click)="addItems()"><span class="material-icons">add</span></button>
+        </div>
+        <div>
+    </div>
+  </div>
+</div>
+  </div>
+  <mat-divider></mat-divider>
+  <div mat-dialog-actions class="mat-dialog-button">
+    <h2 style="margin-top: 18px"> Итого к оплате:  <span  class="textGold fontGabriela">  {{data.price * score}} грн</span></h2>
+    <div class="mat-dialog-button-block">
+      <button mat-stroked-button [mat-dialog-close]="data" cdkFocusInitial>Продолжить покупки</button>
+      <button mat-raised-button color="primary" [routerLink]="['/cart']" mat-dialog-close>
+        <small style="font-size: 14px; margin: 0 10px" class="small" *ngIf="data.available">Купить сейчас</small>
+        <small style="font-size: 14px; color: gainsboro" class="small" *ngIf="!data.available">Заказать!</small>
+      </button>
+    </div>
+
+
+  </div>
+</div>
+

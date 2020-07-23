@@ -1,0 +1,35 @@
+mat-card {
+  width: 60%;
+  margin: 40px auto;
+  padding: 20px;
+}
+mat-card-header {
+  justify-content: center;
+  background-color: whitesmoke;
+  padding-top: 20px;
+  font: 1em  'Gabriela', serif;
+}
+mat-list-item {
+  height: auto;
+  margin: 10px 20px;
+}
+mat-list-item span {
+  margin: 10px 20px;
+}
+@media only screen and (max-width: 599px) {
+  mat-card {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+}
+.material-icons {
+  color: #DFB352FF;
+}
+
+.app-class .mat-list-item {
+  height: auto;
+  width: auto;
+  background-color: #F8F5FFFF;
+  padding: 8px;
+}

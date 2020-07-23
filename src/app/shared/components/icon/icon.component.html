@@ -1,0 +1,46 @@
+<div class="wrapper">
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title class="textGold fontGabriela">{{icon.title}}
+        <mat-card-subtitle>
+          <div *ngIf="icon.available"><span style="color: lime"  class="fontGabriela">В наличии</span> </div>
+          <div *ngIf="!icon.available"><span style="color: red"  class="fontGabriela">Нет в наличии</span></div>
+        </mat-card-subtitle>
+      </mat-card-title>
+
+    </mat-card-header>
+     <div style="display: flex; width: 100%; height: auto">
+       <a  [routerLink]="['/icon', icon.id]">
+         <img mat-card-image mat-card-lg-image src="{{icon.img[0]}}" alt="{{icon.title}}" style="margin: 20px ">
+       </a>
+
+     </div>
+    <mat-card-content>
+      <p mat-card-subtitle class="fontGabriela">
+        Материал: оклад с серебром и позолотой, рама из дерева, лаковое покрытие,
+        размеры: {{icon.width}}&#xD7;{{icon.height}}
+      </p>
+      <div style="display: flex; justify-content: space-between">
+        <div style="display: flex; flex-direction: column; margin-bottom: 10px">
+          <mat-list *ngIf="icon.pairs; else pairs">Цена за пару:</mat-list>
+          <ng-template #pairs><mat-list>Цена:</mat-list></ng-template>
+          <mat-list class="textGold fontGabriela" style="font-size: 16px">{{icon.price}} грн</mat-list>
+        </div>
+        <div></div>
+      </div>
+      <mat-card-actions>
+        <div style="display: flex; flex-wrap: nowrap">
+          <button mat-raised-button (click)="openOrderForm(icon)" color="primary" style="margin: 0 6px">
+            <small style="font-size: 14px; margin: 0 10px" *ngIf="icon.available">Купить</small>
+            <small style="font-size: 14px; color: gainsboro" *ngIf="!icon.available">Заказать!</small>
+          </button>
+          <button mat-raised-button [routerLink]="['/icon', icon.id]">Открыть</button>
+        </div>
+        <div>
+          <button color="primary" mat-icon-button><span class="material-icons">more_vert</span></button>
+        </div>
+      </mat-card-actions>
+    </mat-card-content>
+  </mat-card>
+</div>
+

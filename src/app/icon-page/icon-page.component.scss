@@ -1,0 +1,241 @@
+mat-grid-list {
+  margin: 20px auto;
+  width: 80vw;
+  height: auto;
+  font-family: 'Gabriela', serif;
+  mat-grid-tile {
+    font-family: 'Gabriela', serif;
+    -webkit-box-shadow: 0px 0px 23px -11px rgba(163,163,163,1);
+    -moz-box-shadow: 0px 0px 23px -11px rgba(163,163,163,1);
+    box-shadow: 0px 0px 23px -11px rgba(163,163,163,1);
+
+  }
+}
+mat-list-item {
+  font-family: 'Gabriela', serif;
+}
+
+.comments-block {
+  font-family: 'Gabriela', serif;
+  margin: 20px auto;
+  width: 80%;
+  height: auto;
+  -webkit-box-shadow: 0px 0px 23px -11px rgba(163,163,163,1);
+  -moz-box-shadow: 0px 0px 23px -11px rgba(163,163,163,1);
+  box-shadow: 0px 0px 23px -11px rgba(163,163,163,1);
+}
+
+.carousel-slider {
+height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  &-img {
+    height: 6vw;
+    margin: 5px;
+    -webkit-box-shadow: 0px 0px 23px -11px rgba(163,163,163,1);
+    -moz-box-shadow: 0px 0px 23px -11px rgba(163,163,163,1);
+    box-shadow: 0px 0px 23px -11px rgba(163,163,163,1);
+
+  }
+}
+
+#slider {
+  position: relative;
+}
+#slider .arrows {
+  font-size: 26px;
+  color: grey;
+}
+.btn-left {
+  position: absolute;
+  bottom: 60px;
+  left: 10px;
+}
+.price-button-block {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+.btn-right {
+  position: absolute;
+  bottom: 60px;
+  right: 10px;
+}
+.select {
+  height: 110px;
+  margin: 5px;
+  border: 1px solid darkgray;
+}
+.question-block {
+  border: 1px solid dodgerblue;
+  border-radius: 18px;
+  margin: 20px 0 20px 100px;
+}
+.example-form {
+  width: 80%;
+  display: grid;
+  margin: 40px auto;
+}
+.example-full-width {
+  margin: 20px;
+width: 40%;
+  &-textarea {
+    padding: 20px;
+    width: 80%;
+  }
+}
+.price-button {
+  font-size: 24px;
+  color: goldenrod;
+  margin-bottom: 14px
+}
+.button-to-buy {
+  width: 160px;
+  height: 56px;
+  font-size: 20px;
+}
+.feedback-list-card {
+  border: 1px solid lightgray;
+  margin: 15px 40px;
+  padding: 10px;
+  -webkit-box-shadow: 0px 0px 23px -11px rgba(163,163,163,1);
+  -moz-box-shadow: 0px 0px 23px -11px rgba(163,163,163,1);
+  box-shadow: 0px 0px 23px -11px rgba(163,163,163,1);
+}
+.feedback-list-shadow {
+  margin: 15px 40px;
+  border: 1px solid lightgray;
+  padding: 10px;
+  -webkit-box-shadow: 0px 0px 23px -11px rgba(163,163,163,1);
+  -moz-box-shadow: 0px 0px 23px -11px rgba(163,163,163,1);
+  box-shadow: 0px 0px 23px -11px rgba(163,163,163,1);
+}
+.img-zoom-result {
+  visibility: hidden;
+  border: 1px solid #d4d4d4;
+  /*set the size of the result div:*/
+  position: absolute;
+  top: 250px;
+  left: 40vw;
+  width: 22vw;
+  height: 20vw;
+  z-index: 1001;
+}
+.question-block-mob {
+  display: flex;
+  align-items: center;
+  margin: 10px 10px 0 10px;
+}
+
+@media screen and (max-width: 1366px)  {
+  .img-zoom-result  {
+    display: none;
+  }
+}
+.img-block {
+  height: 500px;
+  width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+
+@media screen and (max-width: 1024px) {
+  .btn-arrows {
+    display: none;
+  }
+  .carousel-slider {
+    display: none;
+  }
+  .carousel-slider-divider {
+    display: none;
+  }
+  .image {
+    width: 450px;
+    margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 475px)  {
+  mat-grid-list {
+    width: 100%;
+  }
+  .img-block {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    img {
+      width: 320px;
+      margin: 10px auto;
+    }
+  }
+  .btn-arrows {
+    display: none;
+  }
+  .carousel-slider {
+    display: none;
+  }
+  .carousel-slider-divider {
+    display: none;
+  }
+  .example-form {
+    width: 100%;
+    margin: 20px auto;
+  }
+  .comments-block {
+    width: 100%;
+  }
+  .feedback-list-card {
+    margin: 15px 10px;
+    padding: 10px;
+  }
+  .question-block {
+    flex-direction: column;
+    margin: 20px 0 20px 30px;
+  }
+  .feedback-list-shadow {
+    width: 90%;
+    border: 1px solid lightgray;
+    margin: 8px;
+  }
+  .question-block-mob {
+    flex-direction: column;
+    margin: 10px 10px 0 10px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .feedback-list-shadow {
+    width: 88%;
+    border: 1px solid lightgray;
+    margin: 8px;
+  }
+  .example-full-width {
+    margin: 20px;
+    width: 60%;
+
+    &-textarea {
+      padding: 20px;
+      width: 60%;
+    }
+  }
+  .price-button {
+    font-size: 18px;
+  }
+  .button-to-buy {
+    width: 120px;
+    height: 46px;
+    font-size: 18px;
+  }
+  mat-card-header {
+    display: flex;
+    margin: 0 30px;
+  }
+  .image {
+    width: 300px;
+  }
+}

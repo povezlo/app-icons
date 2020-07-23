@@ -1,0 +1,105 @@
+.container {
+  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #eee;
+}
+mat-card {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 20px 30px;
+}
+
+.hideFilter {
+  display: none;
+}
+mat-sidenav {
+  display: flex;
+width: 250px;
+  &-container {
+    min-height: 60%;
+  }
+}
+.mt {
+  display: flex;
+  justify-content: space-around;
+  background-color: #0db9f0;
+}
+.sidenavBarFilter {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 0 20px
+}
+.sidenavBarFilterBtn {
+  display: flex;
+  width: auto;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.findFilter {
+  display: flex;
+  align-items: center
+}
+.slidenavFilterBtnSm {
+  display: flex;
+  justify-content: space-between;
+}
+.hide {
+  display: flex;
+}
+
+@media screen and  (max-width: 768px) {
+  .hide {
+    display: none;
+  }
+}
+.hideFilter {
+  display: none;
+}
+@media screen and  (max-width: 1024px) {
+  .hideFilter {
+    display: flex;
+    height: 50px;
+  }
+  .sidenavBarFilterBtn {
+    width: 100%;
+  }
+}
+@media screen and  (max-width: 375px) {
+  .sidenavBarFilter mat-form-field {
+    width: 160px; margin: 0 20px 0 20px;
+  }
+  .findFilter {
+    width: 100%;
+  }
+  .slidenavFilterBtnSm {
+    margin-right: -40px;
+  }
+}
+@media screen and  (min-width: 1024px) and (max-width: 1366px)  {
+  mat-card {
+    padding: 20px 50px;
+  }
+}
+@media screen and  (max-width: 768px) {
+  mat-card {
+    justify-content: space-around;
+  }
+}
+@media screen and  (min-width: 480px) and (max-width: 860px) {
+  mat-card {
+    justify-content: center;
+    padding: 10px 0;
+  }
+}
+ngui-in-view {
+  min-height: 300px;
+}
+.num-images {
+  position: fixed; padding: 5px;
+  bottom: 0; right: 0; background: #333;color: #fff;
+}

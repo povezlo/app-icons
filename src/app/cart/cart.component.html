@@ -1,0 +1,237 @@
+<div style="display: flex; justify-content: center">
+  <mat-icon matBadge="{{item}}" matBadgeColor="warn" style="margin: 21px">shopping_basket</mat-icon><h1 style="text-align: center; margin: 20px">Корзина</h1>
+</div>
+<div class="wrapper">
+
+<!--  ФОРМА ЗАЯВКА ЗАКАЗА-->
+
+  <div class="form-order">
+    <div style="display: flex; flex-direction: column; width: 100%; height: 100%;">
+      <div style="margin: 20px auto ">
+        <h2 mat-card-title class=" fontGabriela">Оформление заказа</h2>
+      </div>
+      <div class="form-order-margin">
+        <mat-vertical-stepper [linear]="false" #stepper>
+          <!--        ШАГ1-->
+          <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup" style="display: flex; flex-direction: column">
+              <ng-template matStepLabel>Контактные данные</ng-template>
+              <mat-form-field>
+                <mat-label>Имя</mat-label>
+                <input matInput placeholder="" formControlName="name" required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Фамилия</mat-label>
+                <input matInput placeholder="" formControlName="family" required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Отчество</mat-label>
+                <input matInput placeholder="" formControlName="nameMiddle" required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-icon matSuffix>phone</mat-icon>
+                <span matPrefix mat-card-subtitle>Телефон +38 &nbsp;</span>
+                <input matInput formControlName="phone" appPhoneMask required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>E-mail</mat-label>
+                <input matInput placeholder="" formControlName="email">
+              </mat-form-field>
+              <div>
+                <button mat-button matStepperNext>Далее</button>
+              </div>
+            </form>
+          </mat-step>
+
+          <!--        ШАГ2-->
+
+          <mat-step [stepControl]="secondFormGroup">
+            <!--            GET ОТДЕЛЕНИЕ ПОЧТЫ-->
+            <form [formGroup]="secondFormGroup">
+              <ng-template matStepLabel>Способ доставки</ng-template>
+              <mat-radio-group formControlName="poshta" required style="display: flex; flex-direction: column">
+                <mat-label>Мы работаем через Новую почту, но вы можете предложить свой вариант.</mat-label>
+                <mat-radio-button color="accent" value="novaPoshta" checked>Новая почта</mat-radio-button>
+                <mat-radio-button color="accent" value="anotherPoshta">Ваш вариант</mat-radio-button>
+              </mat-radio-group>
+              <mat-divider></mat-divider>
+              <div class="form-block-poshta">
+                <mat-form-field>
+                  <mat-label>Выберите ваш город </mat-label>
+                  <input matInput type="text"  [matAutocomplete]="autoCity" formControlName="city" (input)="getCitytoApi($event)">
+                  <mat-autocomplete #autoCity="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let city of cities" [value]="city">
+                      {{city.Description}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                <!--                 ВАРИАНТЫ КУРЬЕРА-->
+                <div *ngIf="secondFormGroup.value.poshta === 'novaPoshta'; else anotherPoshta">
+                  <mat-form-field style="width: 100%">
+                    <mat-label>Выберите номер или адресс вашего отделения Новой почты </mat-label>
+                    <input matInput type="text"  [matAutocomplete]="auto" formControlName="depart"
+                           (focus)="getWarehouses()"  (input)="SelectedWarehouses($event)">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                      <mat-option *ngFor="let warehouse of getWarehouse" [value]="warehouse">
+                        {{warehouse.Description}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </div>
+                <ng-template #anotherPoshta>
+                  <mat-form-field style="width: 100%">
+                    <mat-label>Другой курьер</mat-label>
+                    <select matNativeControl required formControlName="selectedPoshta">
+                      <option value="ukrposta">УкрПошта</option>
+                      <option value="intime">Интайм</option>
+                      <option value="autolux">Автолюкс</option>
+                      <option value="delfast">Делфаст</option>
+                      <option value="meestexpress">Мист Экспресс</option>
+                      <option value="Zruchna">Zruchna</option>
+                      <option value="delivery">Деливери</option>
+                      <option value="other">Свой курьер</option>
+                    </select>
+                  </mat-form-field>
+                </ng-template>
+              </div>
+              <div>
+                <button mat-button matStepperPrevious>Назад</button>
+                <button mat-button matStepperNext>Далее</button>
+              </div>
+            </form>
+          </mat-step>
+
+          <!--        ШАГ3-->
+
+          <mat-step [stepControl]="lastFormGroup">
+            <div>
+              <form [formGroup]="lastFormGroup">
+                <ng-template matStepLabel>Способ оплаты</ng-template>
+                <mat-form-field style="width: 100%; margin-bottom: 10px">
+                  <input matInput hidden>
+                  <mat-radio-group formControlName="oplata" required style="display: flex; flex-direction: column">
+                    <div *ngIf="!available">
+                      <mat-label style="margin-bottom: 20px; color: darkblue" >Если иконы нет в наличие, выберите раздел "под заказ".
+                        Мы вам доверяем и не требуем с Вас предоплаты. Заказ выполняется в течении двух недель.
+                        Это время необходимое для изготовления иконы. Мы доставляем посылку по вашему адресу.
+                        Вы получаете икону и оплачиваете ее на месте.</mat-label>
+                    </div>
+
+                    <mat-radio-button color="accent" value="paymentOnDelivery"checked>Наложенный платеж</mat-radio-button>
+                    <mat-radio-button #payment color="accent" value="payment">Оплата через банковскую карточку</mat-radio-button>
+                    <div *ngIf="payment.checked">
+                      <p style="margin-left: 60px">
+                        <a href="https://secure.wayforpay.com/button/b656e630dbc01"
+                           style="display:inline-block!important;background:#f1f1f1
+                           url('https://s3.eu-central-1.amazonaws.com/w4p-merch/button/bg7x2.png')
+                           no-repeat center right;background-size:cover;width: 256px!important;height:54px!important;
+                           border:1px solid #ccc!important;border-radius:14px!important;padding:18px!important;text-decoration:none!important;
+                           box-shadow:3px 2px 8px rgba(71,66,66,0.22)!important;text-align:left!important;outline:none!important;
+                           box-sizing:border-box!important;" onmouseover="this.style.opacity='0.8';" onmouseout="this.style.opacity='1';">
+                           <span style="font-family:Verdana,Arial,sans-serif!important;font-weight:bold!important;font-size:14px!important;
+                           color:#2094de!important;line-height:18px!important;vertical-align:middle!important;">Оплатить
+                           </span>
+                        </a>
+                      </p>
+                    </div>
+                    <mat-radio-button color="accent" value="booking">Под заказ</mat-radio-button>
+                  </mat-radio-group>
+
+
+                </mat-form-field>
+                <div>
+                  <button mat-button matStepperPrevious>Назад</button>
+                  <button mat-button matStepperNext>Далее</button>
+                </div>
+              </form>
+            </div>
+
+          </mat-step>
+          <!--        ШАГ4-->
+          <mat-step>
+            <ng-template matStepLabel>Оформить заказ</ng-template>
+            <h3>Еще раз проверьте свой заказ</h3>
+            <div>
+              <p>Икона Казанская Божия матерь (хм-001)</p>
+              <mat-card-subtitle>размер: 200*300, маслянные краски, позолота </mat-card-subtitle>
+              <p>Цена за ед. : </p>
+            </div>
+            <mat-divider></mat-divider>
+            <p>Всего к оплате</p>
+            <div style="display: flex; justify-content: space-around; margin: 0 40px">
+              <div>
+                <button mat-button matStepperPrevious>Назад</button>
+                <button mat-button (click)="stepper.reset()">Сбросить</button>
+              </div>
+              <button mat-raised-button color="primary" class="fontGabriela">Оплатить</button>
+            </div>
+          </mat-step>
+        </mat-vertical-stepper>
+      </div>
+
+    </div>
+
+
+  </div>
+
+<!--  ВАШ ЗАКАЗ-->
+
+  <div class="order-card">
+    <div style="display: flex; flex-direction: column;">
+      <div style="margin: 20px auto ">
+        <h2 mat-card-title class="fontGabriela"> Ваш заказ</h2>
+      </div>
+<!--      //BLOCK CARD ORDER-->
+      <div *ngIf="orderIcons | async as icons">
+        <div *ngFor="let icon of icons">
+          <div class="order-card-item">
+            <button mat-icon-button class="btn-items" (click)="deleteItems(icon.icon, icon.code)" color="warn" style="position: absolute; top: 10px; right: 10px">
+              <span class="material-icons">delete</span></button>
+            <div class="order-card-item-block">
+              <img src="{{icon.icon.img[0]}}" alt="">
+              <div style="margin-left: 20px">
+                <h3 mat-card-title class="fontGabriela textGold">{{icon.icon.title}}</h3>
+                  <div *ngIf="icon.icon.available">
+                    <span style="color: lime">В наличии</span>
+                  </div>
+                  <div *ngIf="!icon.icon.available">
+                    <span style="color: red">Нет в наличии</span>
+                  </div>
+                <h3 mat-card-subtitle class="fontGabriela text-sm">(размер: {{icon.icon.width}}*{{icon.icon.height}}, серебро, позолото, письмо: {{icon.icon.paints}})</h3> <span mat-card-subtitle>Код: хм-00{{icon.code}}</span>
+              </div>
+            </div>
+            <div class="price-block">
+<!--              PRICE BTN-->
+              <div class="price-btn">
+                <div style="display: flex">
+                  <div style="display: flex; margin-bottom: 10px">
+                    <mat-list *ngIf="icon.icon.pairs; else pairs" class="fontGabriela">Цена за пару:</mat-list>
+                    <ng-template #pairs><mat-list class="fontGabriela">Цена:</mat-list></ng-template>
+                    <mat-list class="textGold fontGabriela des">{{icon.icon.price}} грн</mat-list>
+                  </div>
+                  <h2 class="icon-clear"><span class="material-icons">clear</span></h2>
+                </div>
+                <div class="btn-block-items">
+                  <button mat-icon-button class="btn-items" (click)="removeItems(icon.icon, icon.item)"><span class="material-icons">remove</span></button>
+                  <small class="btn-items-value" mat-subheader> <span style="margin: 0 auto; width: 18px">{{icon.item}}</span></small>
+                  <button mat-icon-button class="btn-items" (click)="addItems(icon.icon)"><span class="material-icons">add</span></button>
+                </div>
+                <div>
+                </div>
+            </div>
+          </div>
+        </div>
+       </div>
+<!--        // BLOCK TOTAL AMOUNT PRICE-->
+        <div class="total-amount">
+          <div style="display: flex;">
+            <h3 class="fontGabriela" style="margin: 10px;">Всего к оплате:</h3>
+            <h3 class="textGold fontGabriela" style="margin: 10px; font-size: 18px">{{totalPrice}} грн</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

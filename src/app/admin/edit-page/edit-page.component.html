@@ -1,0 +1,46 @@
+<form [formGroup]="form" novalidate (ngSubmit)="onSubmit()" class="form">
+  <div formArrayName="files" class="matflex">
+    <div  *ngFor="let control of form.controls['files']['controls']; let i = index">
+      <mat-card class="card">
+        <mat-card-header>
+          <mat-card-title>{{icons.title}}</mat-card-title>
+          <mat-card-subtitle>Фотография {{i+1}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-lg-image src="{{icons.img[i]}}" alt="Не удалось загрузить">
+        <mat-card-actions>
+          <mat-form-field appearance="outline">
+            <mat-label>Изменить фотографию</mat-label>
+            <ngx-mat-file-input formControlName="{{i}}" (change)="onSelectFile($event, i)" placeholder="Basic outline placeholder" accept=".png, .jpg, .jpeg" ></ngx-mat-file-input>
+            <mat-icon matSuffix>camera_enhance</mat-icon>
+          </mat-form-field>
+          <button *ngIf=" i == 0; else removeNotFirst" color="warn" mat-raised-button disabled><span class="material-icons">delete</span>Удалить</button>
+          <ng-template #removeNotFirst>
+            <button (click)="remove(i)" color="warn" mat-stroked-button><span class="material-icons">delete</span>Удалить</button>
+          </ng-template>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <div>
+      <mat-card class="card">
+        <mat-card-header>
+          <mat-card-title>Новая фотография</mat-card-title>
+          <mat-card-subtitle>Новая</mat-card-subtitle>
+        </mat-card-header>
+        <div class="addImage"><span class="material-icons">image</span></div>
+        <mat-card-actions>
+          <mat-form-field appearance="outline">
+            <mat-label>Добавить фотографию</mat-label>
+            <ngx-mat-file-input (change)="onAddNewFoto($event)" placeholder="Basic outline placeholder" accept=".png, .jpg, .jpeg" ></ngx-mat-file-input>
+            <mat-icon matSuffix>camera_enhance</mat-icon>
+          </mat-form-field>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" type="submit" (click)="onSubmit()" [disabled] = "disabled">Обновить
+    </button>
+
+    <button mat-stroked-button color="basic" class="btn-edit" [routerLink]="['/admin', 'dashboard']">Назад</button>
+  </mat-card-actions>
+</form>
