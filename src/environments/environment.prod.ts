@@ -1,7 +1,7 @@
 import {Environment} from './interface';
 
 export const environment: Environment = {
-  apiKey: '',
-  production: true,
-  firebaseDataBase: 'https://ikony-6f09b.firebaseio.com/'
+  apiKey: 'AIzaSyBbvfIUf-_jV_uIos4ozrQXgjZ6fTDthug',
+  production: false,
+  firebaseDataBase: 'https://ikony-b394e.firebaseio.com/'
 };
