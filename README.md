@@ -1,6 +1,6 @@
 I am making this "Icon Workshop" online store with an admin panel. I am making an online store based on the Angular 9 + Material Design framework. The backend is a Firebase database. Here it is in test mode https://angular-blog-b9ec2.web.app/. At the moment I am setting up a backend on Node js MySQL.
 You can check how the admin panel works by path:
-/admin
+http://localhost:4200/admin
 login: test@gmail.com
 password: 123456789
 
