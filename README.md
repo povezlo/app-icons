@@ -1,4 +1,4 @@
-##I am making this "Icon Workshop" online store with an admin panel.
+## I am making this "Icon Workshop" online store with an admin panel.
 I am making an online store based on the Angular 9 + Material Design framework.
 The backend is a Firebase database.
 Here it is in test mode https://angular-blog-b9ec2.web.app/.
